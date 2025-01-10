@@ -6,28 +6,28 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { body } from "express-validator";
 import mongoose from "mongoose";
+import cors from 'cors';
 import fs from "fs";
 import path from "path";
 const app = express();
 
+const corsOptions = {
+  origin: 'https://place-share-client-beta.vercel.app', // تحديد النطاق المسموح به
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions)); // تطبيق CORS
+
 // Middleware لمعالجة بيانات JSON
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 app.use("/uploads", express.static(path.join("uploads")));
 // Middleware لإضافة CORS headers
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://place-share-client-beta.vercel.app"); // السماح لجميع الدومينات (أو حدد دومين معين بدل *)
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH"
-  ); // السماح بأنواع معينة من الطلبات
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true"); // السماح بالهيدرز المطلوبة
-  next(); // متابعة الطلب للـ routes
-});
-
 
 app.use("/api/places", placeRoute);
 app.use("/api/users", userRoute);
