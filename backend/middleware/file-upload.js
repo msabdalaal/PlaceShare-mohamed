@@ -1,6 +1,7 @@
 import multer from "multer";
 import fs from "fs";
 import HttpError from "../models/http-error.js";
+import path from "path";
 const MulterSetting = multer({
   limits: 900000,
   storage: multer.diskStorage({
@@ -8,9 +9,9 @@ const MulterSetting = multer({
       let folderPath = "";
       if (req.url === "/signup") {
         const folderName = req.body.email.split("@")[0];
-        folderPath = `uploads/users/${folderName}`;
+        folderPath = path.join(__dirname, "uploads", "users", folderName);
       } else {
-        folderPath = `uploads/places/`;
+        folderPath = path.join(__dirname, "uploads", "places");
       }
       if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath, { recursive: true }); // `recursive: true` لإنشاء المجلدات الداخلية
