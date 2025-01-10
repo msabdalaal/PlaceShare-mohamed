@@ -2,6 +2,9 @@ import multer from "multer";
 import fs from "fs";
 import HttpError from "../models/http-error.js";
 import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const MulterSetting = multer({
   limits: 900000,
   storage: multer.diskStorage({
