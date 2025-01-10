@@ -12,9 +12,9 @@ const MulterSetting = multer({
     destination: (req, file, cb) => {
       let folderPath = "";
       if (req.url === "/signup") {
-        folderPath = path.join(__dirname, "uploads", "users");
+        folderPath = path.join('/tmp', "uploads", "users");
       } else {
-        folderPath = path.join(__dirname, "uploads", "places");
+        folderPath = path.join('/tmp', "uploads", "places");
       }
       if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath, { recursive: true }); // `recursive: true` لإنشاء المجلدات الداخلية
