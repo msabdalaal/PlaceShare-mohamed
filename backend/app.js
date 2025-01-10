@@ -26,7 +26,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
-app.use("/uploads", express.static(path.join("uploads")));
+// app.use("/uploads", express.static(path.join("uploads")));
+app.use('/uploads', express.static(path.join('/tmp', 'uploads')));
 // Middleware لإضافة CORS headers
 
 app.use("/api/places", placeRoute);
