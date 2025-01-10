@@ -12,8 +12,7 @@ const MulterSetting = multer({
     destination: (req, file, cb) => {
       let folderPath = "";
       if (req.url === "/signup") {
-        const folderName = req.body.email.split("@")[0];
-        folderPath = path.join(__dirname, "uploads", "users", folderName);
+        folderPath = path.join(__dirname, "uploads", "users");
       } else {
         folderPath = path.join(__dirname, "uploads", "places");
       }
