@@ -33,9 +33,6 @@ config.env
 
 # Backend-specific
 /backend/node_modules/
-/backend/uploads/
-!/backend/uploads/users/.gitkeep
-!/backend/uploads/places/.gitkeep
 /backend/*.log
 /backend/config.env
 
