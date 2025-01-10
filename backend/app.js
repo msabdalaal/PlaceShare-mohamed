@@ -28,12 +28,13 @@ app.use((req, res, next) => {
   next(); // متابعة الطلب للـ routes
 });
 
+
+app.use("/api/places", placeRoute);
+app.use("/api/users", userRoute);
 app.use("/", (req, res, next) => {
   console.log("running......");
   res.send("Welcome to the homepage!");
 });
-app.use("/api/places", placeRoute);
-app.use("/api/users", userRoute);
 app.all("*", (req, res, next) => {
   return next(new HttpError(400, "No Route"));
 });
