@@ -49,7 +49,7 @@ config.env
 
 # Miscellaneous
 public/
-uploads/
+
 
 # Package manager locks
 package-lock.json
