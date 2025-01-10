@@ -34,6 +34,8 @@ config.env
 # Backend-specific
 /backend/node_modules/
 /backend/uploads/
+!/backend/uploads/users/.gitkeep
+!/backend/uploads/places/.gitkeep
 /backend/*.log
 /backend/config.env
 
@@ -56,6 +58,4 @@ uploads/
 package-lock.json
 yarn.lock
 
-# Allow the folders users and places with their .gitkeep files
-!/backend/uploads/users/.gitkeep
-!/backend/uploads/places/.gitkeep
+#
