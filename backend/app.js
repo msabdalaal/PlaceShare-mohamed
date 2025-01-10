@@ -25,6 +25,7 @@ app.use((req, res, next) => {
   next(); // متابعة الطلب للـ routes
 });
 
+app.use("/",console.log("running......"))
 app.use("/api/places", placeRoute);
 app.use("/api/users", userRoute);
 app.all("*", (req, res, next) => {
