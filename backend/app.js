@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use("/uploads", express.static(path.join("uploads")));
 // Middleware لإضافة CORS headers
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://place-share-client-beta.vercel.app/"); // السماح لجميع الدومينات (أو حدد دومين معين بدل *)
+  res.setHeader("Access-Control-Allow-Origin", "https://place-share-client-beta.vercel.app"); // السماح لجميع الدومينات (أو حدد دومين معين بدل *)
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, PATCH"
