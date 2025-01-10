@@ -3,10 +3,10 @@ import placeRoute from "./routes/place-route.js";
 import userRoute from "./routes/user-route.js";
 import HttpError from "./models/http-error.js";
 import dotenv from "dotenv";
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
 import { body } from "express-validator";
 import mongoose from "mongoose";
-import fs from 'fs'
+import fs from "fs";
 import path from "path";
 const app = express();
 
@@ -15,17 +15,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
-app.use("/uploads", express.static(path.join('uploads')));
+app.use("/uploads", express.static(path.join("uploads")));
 // Middleware لإضافة CORS headers
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // السماح لجميع الدومينات (أو حدد دومين معين بدل *)
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH'); // السماح بأنواع معينة من الطلبات
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
-  res.setHeader('Access-Control-Allow-Credentials', 'true');// السماح بالهيدرز المطلوبة
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173"); // السماح لجميع الدومينات (أو حدد دومين معين بدل *)
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH"
+  ); // السماح بأنواع معينة من الطلبات
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true"); // السماح بالهيدرز المطلوبة
   next(); // متابعة الطلب للـ routes
 });
 
-app.use("/",console.log("running......"))
+app.use("/", (req, res, next) => {
+  console.log("running......");
+  res.send("Welcome to the homepage!");
+});
 app.use("/api/places", placeRoute);
 app.use("/api/users", userRoute);
 app.all("*", (req, res, next) => {
@@ -34,11 +40,10 @@ app.all("*", (req, res, next) => {
 
 app.use((error, req, res, next) => {
   console.log(error);
-  if(req.file)
-  {
-    fs.unlink(req.file.path,(err)=>{
+  if (req.file) {
+    fs.unlink(req.file.path, (err) => {
       console.log(err);
-    })
+    });
   }
   if (res.headerSent) {
     return next(error);
@@ -65,4 +70,4 @@ mongoose
   .catch((err) => {
     console.error("Database connection error:", err);
   });
-app.listen(process.env.PORT||3000);
+app.listen(process.env.PORT || 3000);
