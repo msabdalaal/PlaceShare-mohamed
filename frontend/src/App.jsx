@@ -23,9 +23,11 @@ import { loader as usersLoader } from "./users/pages/User";
 import LoadingSpinner from "./shared/components/UiElement/LoadingSpinner";
 
 function App() {
+  const AuthData = AuthShared();
   const jwt = Cookies.get("jwt");
   console.log("Jwt",jwt); //Jwt undefined
-  const AuthData = AuthShared();
+  const jwtt = Cookies.get("_hp5_meta.3283886231");
+  console.log("Jwt",jwtt); //Jwt undefined
   useEffect(() => {
     const jwt = Cookies.get("jwt");
     console.log("Jwt",jwt); //Jwt undefined
