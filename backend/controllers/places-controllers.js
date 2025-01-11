@@ -23,7 +23,6 @@ export const createPlace = async (req, res, next) => {
   try {
     const location = await getCoordsForAddress(req.body.address);
     req.body.location = location;
-    req.body.image =req.file.path;
     const user = await User.findById(req.body.creator).session(session);
     if (!user) {
       return next(new HttpError(400, "can't find creator"));

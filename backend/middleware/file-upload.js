@@ -14,6 +14,7 @@ cloudinary.config({
 const storage = new multer.memoryStorage();
 const upload = multer({storage});
 export const Multer=upload.single("image");
+
 export const uploadImageToCloudinary = async (req, res, next) => {
   try{
     const b64 = Buffer.from(req.file.buffer).toString("base64");

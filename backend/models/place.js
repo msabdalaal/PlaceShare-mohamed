@@ -6,6 +6,7 @@ const placeSchema = new mongoose.Schema({
     required: [true, "Place must has a description"],
   },
   image: { type: String, required: [true, "Place must has a image"] },
+  imagePublicId: { type: String, required: true },
   address: { type: String, required: [true, "Place must has a address"] },
   location: {
     lat: { type: String, required: [true, "location must has a lat"] },
