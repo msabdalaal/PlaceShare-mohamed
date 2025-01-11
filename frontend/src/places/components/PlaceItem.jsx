@@ -111,7 +111,7 @@ const PlaceItem = ({
       <li key={id} className="place-item">
         <Card className="place-item__content">
           <div className="place-item__image">
-            <img src={`${import.meta.env.VITE_BACKEND_URL}/${image}`} alt={title} />
+            <img src={image} alt={title} />
           </div>
           <div className="place-item__info">
             <h2>{title}</h2>
