@@ -22,7 +22,6 @@ const cookiesOptions = {
 };
 export const signup = async (req, res, next) => {
   try {
-    req.body.image = req.file.path;
     req.body.places = [];
     const user = await User.create([req.body]);
     const token = generateToken(user[0]._id, user[0].email);
