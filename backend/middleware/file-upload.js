@@ -22,17 +22,15 @@ export const uploadImageToCloudinary = async (req, res, next) => {
     if (req.url === "/signup") {
       Fpath="PLACE-SHARE/user_images"
     }else{
-      Fpath="PLACE-SHARE/Place_images"
+      Fpath="PLACE-SHARE/place_images"
     }
     const res=await cloudinary.v2.uploader.upload(dataURI,{
       resource_type: "auto",
       folder: Fpath,
       allowed_formats: ["jpg", "png", "jpeg"]
     })
-    console.log("res" , res);
     req.body.image=res.secure_url;
     req.body.imagePublicId=res.public_id;
-    console.log("req", req.body);
     next();
   }catch (err){
     console.log(err);
