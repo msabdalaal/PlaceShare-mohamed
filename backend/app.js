@@ -4,11 +4,10 @@ import userRoute from "./routes/user-route.js";
 import HttpError from "./models/http-error.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import { body } from "express-validator";
 import mongoose from "mongoose";
 import cors from 'cors';
-import fs from "fs";
-import path from "path";
+import cloudinary from "cloudinary";
+
 const app = express();
 
 const corsOptions = {
@@ -26,8 +25,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
-// app.use("/uploads", express.static(path.join("uploads")));
-app.use('/uploads', express.static(path.join('/tmp', 'uploads')));
+
+
 // Middleware لإضافة CORS headers
 
 app.use("/api/places", placeRoute);
@@ -40,13 +39,11 @@ app.all("*", (req, res, next) => {
   return next(new HttpError(400, "No Route"));
 });
 
-app.use((error, req, res, next) => {
+app.use(async(error, req, res, next) => {
   console.log("test");
   console.log(error);
   if (req.file) {
-    fs.unlink(req.file.path, (err) => {
-      console.log(err);
-    });
+      await cloudinary.v2.uploader.destroy(req.body.image_public_id);
   }
   if (res.headerSent) {
     return next(error);

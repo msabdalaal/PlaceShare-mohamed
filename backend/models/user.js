@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
   image: { type: String, required: true },
+  image_public_id: { type: String, required: true },
   places: [
     {
       type: mongoose.Schema.ObjectId,

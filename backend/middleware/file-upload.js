@@ -1,39 +1,33 @@
 import multer from "multer";
-import fs from "fs";
+import cloudinary from "cloudinary";
 import HttpError from "../models/http-error.js";
-import path from "path";
-import { fileURLToPath } from "url";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-console.log(__dirname);
-const MulterSetting = multer({
-  limits: 900000,
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => {
-      let folderPath = "";
-      if (req.url === "/signup") {
-        folderPath = path.join('/tmp', "uploads", "users");
-      } else {
-        folderPath = path.join('/tmp', "uploads", "places");
-      }
-      if (!fs.existsSync(folderPath)) {
-        fs.mkdirSync(folderPath, { recursive: true }); // `recursive: true` لإنشاء المجلدات الداخلية
-      }
-      // تحديد مكان حفظ الملفات
-      cb(null, folderPath); //عايز اعمل فولدر جوه ال uploads بأسم موجود داخل ال req.body
-    },
-    filename: (req, file, cb) => {
-      // تخصيص اسم الملف
-      const ext = file.mimetype.split("/")[1]; // استخراج امتداد الملف
-      cb(null, `file-${Date.now()}.${ext}`);
-    },
-  }),
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith("image")) {
-      cb(null, true);
-    } else {
-      cb(new HttpError(400, "type error"), false);
-    }
-  },
+import dotenv from "dotenv";
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config({ path: "./config.env" });
+}
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRECT_KEY,
 });
-export const Multer = MulterSetting.single("image");
+const storage = new multer.memoryStorage();
+const upload = multer({storage});
+export const Multer=upload.single("image");
+export const uploadImageToCloudinary = async (req, res, next) => {
+  try{
+    const b64 = Buffer.from(req.file.buffer).toString("base64");
+    let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+    const res=await cloudinary.v2.uploader.upload(dataURI,{
+      resource_type: "auto",
+      folder: "PLACE-SHARE/user_images",
+      allowed_formats: ["jpg", "png", "jpeg"]
+    })
+    req.body.image=res.secure_url;
+    req.body.image_public_id=res.public_id;
+    next();
+  }catch (err){
+    console.log(err);
+    return next(new HttpError(400, "No"));
+  }
+}
