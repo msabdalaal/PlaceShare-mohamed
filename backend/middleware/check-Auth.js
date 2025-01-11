@@ -7,7 +7,8 @@ if (process.env.NODE_ENV !== "production") {
 
 const Check = async (req, res, next) => {
   try {
-    console.log("token",req.cookies.jwt);
+    console.log("ddddddddddddddddddddddddddddddddddddddddd")
+    console.log("token",req.cookies);
     const token = req.cookies.jwt;
     if (!token) {
       return next(new HttpError(400, "you don't have access"));
