@@ -18,9 +18,15 @@ export const uploadImageToCloudinary = async (req, res, next) => {
   try{
     const b64 = Buffer.from(req.file.buffer).toString("base64");
     let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+    let Fpath="";
+    if (req.url === "/signup") {
+      Fpath="PLACE-SHARE/user_images"
+    }else{
+      Fpath="PLACE-SHARE/Place_images"
+    }
     const res=await cloudinary.v2.uploader.upload(dataURI,{
       resource_type: "auto",
-      folder: "PLACE-SHARE/user_images",
+      folder: Fpath,
       allowed_formats: ["jpg", "png", "jpeg"]
     })
     console.log("res" , res);
