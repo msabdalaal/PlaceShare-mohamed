@@ -21,7 +21,6 @@ const cookiesOptions = {
   ),
   httpOnly: false,    
   secure: false,       
-  sameSite: 'None'
 };
 export const signup = async (req, res, next) => {
   try {
