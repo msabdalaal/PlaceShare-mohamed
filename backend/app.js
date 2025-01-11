@@ -43,7 +43,7 @@ app.use(async(error, req, res, next) => {
   console.log("test");
   console.log(error);
   if (req.file) {
-      await cloudinary.v2.uploader.destroy(req.body.image_public_id);
+      await cloudinary.v2.uploader.destroy(req.body.imagePublicId);
   }
   if (res.headerSent) {
     return next(error);

@@ -24,7 +24,7 @@ export const uploadImageToCloudinary = async (req, res, next) => {
       allowed_formats: ["jpg", "png", "jpeg"]
     })
     req.body.image=res.secure_url;
-    req.body.image_public_id=res.public_id;
+    req.body.imagePublicId=res.public_id;
     next();
   }catch (err){
     console.log(err);
