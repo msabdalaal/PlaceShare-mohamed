@@ -23,8 +23,10 @@ export const uploadImageToCloudinary = async (req, res, next) => {
       folder: "PLACE-SHARE/user_images",
       allowed_formats: ["jpg", "png", "jpeg"]
     })
+    console.log("res" , res);
     req.body.image=res.secure_url;
     req.body.imagePublicId=res.public_id;
+    console.log("req", req.body);
     next();
   }catch (err){
     console.log(err);
