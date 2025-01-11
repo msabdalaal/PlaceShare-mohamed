@@ -26,6 +26,7 @@ function App() {
   const AuthData = AuthShared();
   useEffect(() => {
     const jwt = Cookies.get("jwt");
+    console.log("Jwt",jwt);
     if (jwt) {
       try {
         const Data = jwtDecode(jwt);
