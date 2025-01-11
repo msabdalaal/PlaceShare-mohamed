@@ -19,7 +19,6 @@ const cookiesOptions = {
   expires: new Date(
     Date.now() + process.env.JWT_COOCKIES_EXPIRATION * 24 * 60 * 60 * 1000
   ),
-  httpOnly: true,    
   secure: true,       
   sameSite: 'None'
 };
