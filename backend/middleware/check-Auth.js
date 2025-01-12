@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: "./config.env" });
 }
 const cookiesOptions = {
-  domain: "place-share-server-three.vercel.app",
+  domain:".place-share-server-three.vercel.app",
   httpOnly: true,    
   secure: true,       
   sameSite: 'None',
