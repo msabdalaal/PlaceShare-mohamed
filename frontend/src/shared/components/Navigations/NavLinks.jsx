@@ -7,7 +7,7 @@ const NavLinks = () => {
   const AuthData = AuthShared();
   const Logout =()=>{
     AuthData.logout();
-    nav('/')
+    nav('/auth')
   }
   return (
     <ul className="nav-links">
