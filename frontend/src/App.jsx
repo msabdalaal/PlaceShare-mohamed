@@ -33,12 +33,12 @@ function App() {
       </div>
     );
   }
-
+  console.log("token",data);
+  console.log("is Logged IN",AuthData.isLoggedIn);
+  console.log("user ID",AuthData.userId);
   if (data?.token) {
     AuthData.login({ id: data.token.id });
-  }else{
-    AuthData.logout();
-  } 
+  }
 
   let children = [];
   if (AuthData.isLoggedIn) {
