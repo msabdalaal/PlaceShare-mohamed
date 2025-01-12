@@ -36,7 +36,7 @@ function App() {
   console.log("token",data);
   console.log("is Logged IN",AuthData.isLoggedIn);
   console.log("user ID",AuthData.userId);
-  if (data?.token) {
+  if (data&&data.token) {
     AuthData.login({ id: data.token.id });
   }
 
