@@ -20,7 +20,7 @@ export const cookiesOptions = {
   secure: process.env.NODE_ENV === "prod", // Only use secure cookies in production
   expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days expiration
   sameSite: "strict", // CSRF protection
-;
+}
 
 export const signup = async (req, res, next) => {
   try {
