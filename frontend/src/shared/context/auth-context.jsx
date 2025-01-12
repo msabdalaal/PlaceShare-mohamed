@@ -15,7 +15,7 @@ export const AuthContextProvider = ({ children }) => {
   const{mutate}=useMutation({
     mutationFn:deleteToken,
     onSuccess: () => {
-      queryClient.invalidateQueries(["users"]);
+      queryClient.invalidateQueries({queryKey:["users"],refetchType:"none"});
     }
   })
   const login = useCallback(({ id }) => {
