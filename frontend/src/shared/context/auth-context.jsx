@@ -14,7 +14,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
-  const {refetch }=useQuery({
+  const {refetch,data:DATA }=useQuery({
     queryKey: ["token"],
     queryFn:deleteToken,
     enabled: false
@@ -25,8 +25,12 @@ export const AuthContextProvider = ({ children }) => {
   },[])
   const logout = async  () => {
     await refetch ();
-    setLoggedIn(false);
-    setUserId(null);
+    if(DATA){
+      console.log(DATA);
+      setLoggedIn(false);
+      setUserId(null);
+    }
+
   };
   const data = {
     isLoggedIn,
