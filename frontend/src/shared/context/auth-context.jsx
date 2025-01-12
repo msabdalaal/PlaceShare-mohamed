@@ -25,6 +25,10 @@ export const AuthContextProvider = ({ children }) => {
     },
     onSettled: () => {
       queryClient.invalidateQueries(['token'])
+    },
+    onSuccess:()=>{
+      setLoggedIn(false);
+      setUserId(null);
     }
   })
   const login = useCallback(({ id }) => {
@@ -32,8 +36,6 @@ export const AuthContextProvider = ({ children }) => {
     setUserId(id);
   },[])
   const logout = () => {
-    setLoggedIn(false);
-    setUserId(null);
     mutate();
   };
   const data = {
