@@ -36,7 +36,7 @@ export const AuthContextProvider = ({ children }) => {
   const logout = async  () => {
     await refetch ();
     if(DATA){
-      console.log(DATA);
+      console.log("DATA",DATA);
       setLoggedIn(false);
       setUserId(null);
     }
