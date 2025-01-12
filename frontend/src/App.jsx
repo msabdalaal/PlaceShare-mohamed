@@ -23,6 +23,7 @@ import LoadingSpinner from "./shared/components/UiElement/LoadingSpinner";
 function App() {
   const AuthData = AuthShared();
   const { data, isLoading } = useQuery({
+    queryKey:["token"],
     queryFn: sendToken,
   });
 
