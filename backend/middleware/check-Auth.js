@@ -15,7 +15,7 @@ const cookiesOptions = {
 };
 
 export const deleteToken = (req, res, next) => {
-  res.clearCookie('jwt');
+  res.clearCookie('jwt',cookiesOptions); // بتشتغل بس وانا في localhost
   res.status(200).json({
     status: "success",
     jwt:""
