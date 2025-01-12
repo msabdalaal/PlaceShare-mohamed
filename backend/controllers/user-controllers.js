@@ -21,7 +21,8 @@ export const cookiesOptions = {
   ),
   httpOnly: true,    
   secure: true,       
-  sameSite: 'None'
+  sameSite: 'None',
+  domain: ".vercel.app"
 };
 export const signup = async (req, res, next) => {
   try {
