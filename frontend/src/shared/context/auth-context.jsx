@@ -1,7 +1,7 @@
 
 import { useQuery } from "@tanstack/react-query";
-import { createContext, useState, useContext, useCallback } from "react";
-import { deleteToken } from "../util/http.js";
+import { createContext, useState, useContext, useCallback, useEffect } from "react";
+import { deleteToken, sendToken } from "../util/http.js";
 
 
 const AuthContext = createContext({
@@ -11,7 +11,6 @@ const AuthContext = createContext({
   logout: () => {},
 });
 export const AuthContextProvider = ({ children }) => {
-
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
   const {refetch,data:DATA }=useQuery({
@@ -19,10 +18,21 @@ export const AuthContextProvider = ({ children }) => {
     queryFn:deleteToken,
     enabled: false
   })
+  const { data:cc } = useQuery({
+    queryKey:["token"],
+    queryFn: sendToken,
+  });
   const login = useCallback(({ id }) => {
     setLoggedIn(true);
     setUserId(id);
   },[])
+  useEffect(() => {
+    // استدعاء تسجيل الدخول فقط بعد استرجاع البيانات
+    if (cc && cc.token) {
+      login({ id: data.token.id });
+    }
+  }, [cc,login]); // تشغيل هذا التأثير فقط عندما تتغير البيانات أو AuthData
+
   const logout = async  () => {
     await refetch ();
     if(DATA){

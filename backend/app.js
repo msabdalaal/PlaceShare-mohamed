@@ -12,8 +12,8 @@ import { checkToken,deleteToken } from "./middleware/check-Auth.js";
 const app = express();
 
 const corsOptions = {
-  // origin: 'https://place-share-client-lake.vercel.app', // مش بيشتغل هنا 
-  origin: 'http://localhost:5173', // بيشتغل هنا 
+  origin: 'https://place-share-client-lake.vercel.app', // مش بيشتغل هنا 
+  // origin: 'http://localhost:5173', // بيشتغل هنا 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,

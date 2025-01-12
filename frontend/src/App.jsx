@@ -22,36 +22,25 @@ import LoadingSpinner from "./shared/components/UiElement/LoadingSpinner";
 
 function App() {
   const AuthData = AuthShared();
-  const { data, isLoading } = useQuery({
-    queryKey:["token"],
-    queryFn: sendToken,
-  });
 
-  useEffect(() => {
-    // استدعاء تسجيل الدخول فقط بعد استرجاع البيانات
-    if (data && data.token) {
-      AuthData.login({ id: data.token.id });
-    }
-  }, [data, AuthData]); // تشغيل هذا التأثير فقط عندما تتغير البيانات أو AuthData
+  // if (isLoading) {
+  //   return (
+  //     <div className="center">
+  //       <LoadingSpinner />
+  //     </div>
+  //   );
+  // }
 
-  if (isLoading) {
-    return (
-      <div className="center">
-        <LoadingSpinner />
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className="center">
-        <LoadingSpinner />
-      </div>
-    );
-  }
-  console.log("token",data);
-  console.log("is Logged IN",AuthData.isLoggedIn);
-  console.log("user ID",AuthData.userId);
+  // if (isLoading) {
+  //   return (
+  //     <div className="center">
+  //       <LoadingSpinner />
+  //     </div>
+  //   );
+  // }
+  // console.log("token",data);
+  // console.log("is Logged IN",AuthData.isLoggedIn);
+  // console.log("user ID",AuthData.userId);
 
 
   let children = [];
