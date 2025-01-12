@@ -14,10 +14,17 @@ export const AuthContextProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
   const{mutate}=useMutation({
     mutationFn:deleteToken,
+    onMutate:async(data)=>{
+      await queryClient.cancelQueries({ queryKey: ["token"] });
+      const prev1 = queryClient.getQueryData(["token"]);
+      queryClient.setQueryData(["token"], data);
+      return { prev1}
+    },
+    onError: (error, variables, context) => {
+      queryClient.setQueryData(["token"], context.prev1);
+    },
     onSettled: () => {
       queryClient.invalidateQueries(['token'])
-      console.log(isLoggedIn);
-      console.log(userId);
     }
   })
   const login = useCallback(({ id }) => {
