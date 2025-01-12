@@ -20,7 +20,7 @@ export const cookiesOptions = {
     Date.now() + process.env.JWT_COOCKIES_EXPIRATION * 24 * 60 * 60 * 1000
   ),
   httpOnly: true,
-  secure: process.env.NODE_ENV === "prod",
+  secure: true,
   path: "/",
   sameSite: "None",
 };
