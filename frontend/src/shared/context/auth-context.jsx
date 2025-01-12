@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useCallback } from "react";
-import Cookies from "js-cookie";
+
 const AuthContext = createContext({
   isLoggedIn: false,
   userId: null,
@@ -16,8 +16,7 @@ export const AuthContextProvider = ({ children }) => {
   const logout = () => {
     setLoggedIn(false);
     setUserId(null);
-
-    Cookies.remove("jwt");
+    
   };
   const data = {
     isLoggedIn,
