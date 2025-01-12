@@ -14,8 +14,8 @@ export const AuthContextProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
   const{mutate}=useMutation({
     mutationFn:deleteToken,
-    onSuccess: () => {
-      queryClient.invalidateQueries({queryKey:["users"],refetchType:"none"});
+    onSettled: () => {
+      window.location.reload();
     }
   })
   const login = useCallback(({ id }) => {
