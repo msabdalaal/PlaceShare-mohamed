@@ -1,6 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
+
+import { useQuery } from "@tanstack/react-query";
 import { createContext, useState, useContext, useCallback } from "react";
-import { deleteToken, queryClient } from "../util/http";
+import { deleteToken } from "../util/http.js";
+
 
 const AuthContext = createContext({
   isLoggedIn: false,
@@ -12,32 +14,19 @@ export const AuthContextProvider = ({ children }) => {
 
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
-  const{mutate}=useMutation({
-    mutationFn:deleteToken,
-    onMutate:async(data)=>{
-      console.log("delete Token",data);
-      await queryClient.cancelQueries({ queryKey: ["token"] });
-      const prev1 = queryClient.getQueryData(["token"]);
-      queryClient.setQueryData(["token"], data);
-      return { prev1}
-    },
-    onError: (error, variables, context) => {
-      console.log(error);
-      queryClient.setQueryData(["token"], context.prev1);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['token'])
-    },
-    onSuccess:()=>{
-      setLoggedIn(false);
-      setUserId(null);
-    }
+  const {mutate}=useQuery({
+    queryKey: ["token"],
+    queryFn:deleteToken,
+    enabled: false
   })
+
   const login = useCallback(({ id }) => {
     setLoggedIn(true);
     setUserId(id);
   },[])
   const logout = () => {
+    setLoggedIn(false);
+    setUserId(null);
     mutate();
   };
   const data = {
