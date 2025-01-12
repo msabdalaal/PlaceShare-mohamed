@@ -14,9 +14,14 @@ export const cookiesOptions = {
 }
 
 export const deleteToken = (req, res, next) => {
-  // res.cookie("jwt", "", cookiesOptions);
+  res.cookie("jwt", "", {
+    httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+    secure: process.env.NODE_ENV === "prod", // Only use secure cookies in production
+    expires: new Date(Date.now() + 1), // 2 days expiration
+    sameSite: "strict", // CSRF protection
+  });
 
-  res.clearCookie("jwt", cookiesOptions);
+  // res.clearCookie("jwt", cookiesOptions);
   console.log("done");
   res.status(200).json({
     status: "success",
