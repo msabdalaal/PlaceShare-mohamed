@@ -36,7 +36,9 @@ function App() {
 
   if (data?.token) {
     AuthData.login({ id: data.token.id });
-  }
+  }else{
+    AuthData.logout();
+  } 
 
   let children = [];
   if (AuthData.isLoggedIn) {
