@@ -1,12 +1,22 @@
 import jwt from "jsonwebtoken";
 import HttpError from "../models/http-error.js";
 import dotenv from "dotenv";
-import { cookiesOptions } from "../controllers/user-controllers.js";
+
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: "./config.env" });
 }
+const cookiesOptions = {
+  expires: new Date(
+    Date.now() + process.env.JWT_COOCKIES_EXPIRATION * 24 * 60 * 60 * 1000
+  ),
+  httpOnly: true,    
+  secure: true,       
+  sameSite: 'None'
+};
+expo
 export const deleteToken = (req, res, next) => {
-  res.cookie("jwt", "", cookiesOptions);
+  // res.cookie("jwt", "", cookiesOptions);
+  res.cookie("ddddd","test",cookiesOptions)
   res.status(200).json({
     status: "success",
     jwt:""
