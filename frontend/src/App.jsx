@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -27,6 +27,21 @@ function App() {
     queryFn: sendToken,
   });
 
+  useEffect(() => {
+    // استدعاء تسجيل الدخول فقط بعد استرجاع البيانات
+    if (data && data.token) {
+      AuthData.login({ id: data.token.id });
+    }
+  }, [data, AuthData]); // تشغيل هذا التأثير فقط عندما تتغير البيانات أو AuthData
+
+  if (isLoading) {
+    return (
+      <div className="center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
   if (isLoading) {
     return (
       <div className="center">
@@ -37,9 +52,7 @@ function App() {
   console.log("token",data);
   console.log("is Logged IN",AuthData.isLoggedIn);
   console.log("user ID",AuthData.userId);
-  if (data&&data.token) {
-    AuthData.login({ id: data.token.id });
-  }
+
 
   let children = [];
   if (AuthData.isLoggedIn) {
@@ -60,7 +73,7 @@ function App() {
       path: "/",
       element: <Root />,
       children: [
-        { index: true, element: <Users />, loader: usersLoader },
+        { index: true, element: <Users key={Math.random()} />, loader: usersLoader },
         ...children,
       ],
     },

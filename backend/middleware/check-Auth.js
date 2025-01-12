@@ -9,24 +9,27 @@ export const deleteToken = (req, res, next) => {
   res.cookie("jwt", "", cookiesOptions);
   res.status(200).json({
     status: "success",
+    jwt:""
   });
 };
 export const checkToken = async (req, res, next) => {
   try {
     const token = req.cookies.jwt;
-    if (!token) {
+    console.log("token", token);
+    if (!token || token === "") {
       res.status(200).json({
         status: "success",
       });
+    } else {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      res.status(200).json({
+        status: "success",
+        token: {
+          id: decoded.id,
+          email: decoded.email,
+        },
+      });
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    res.status(200).json({
-      status: "success",
-      token: {
-        id: decoded.id,
-        email: decoded.email,
-      },
-    });
   } catch (err) {
     if (err.message === "jwt expired") {
       return next(new HttpError(400, "Please Login again"));

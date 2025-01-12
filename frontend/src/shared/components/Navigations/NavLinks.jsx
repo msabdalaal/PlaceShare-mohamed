@@ -1,13 +1,17 @@
 import "./NavLinks.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { AuthShared } from "../../context/auth-context";
 const NavLinks = () => {
-  const nav=useNavigate();
+
   const AuthData = AuthShared();
-  const Logout =()=>{
-    AuthData.logout();
-    nav('/auth')
+  const Logout =async ()=>{
+    try {
+      await AuthData.logout(); // تأكد أن هذه الدالة تعمل بشكل صحيح
+
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
   }
   return (
     <ul className="nav-links">

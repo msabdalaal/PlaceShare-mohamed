@@ -14,20 +14,19 @@ export const AuthContextProvider = ({ children }) => {
 
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
-  const {mutate}=useQuery({
+  const {refetch }=useQuery({
     queryKey: ["token"],
     queryFn:deleteToken,
     enabled: false
   })
-
   const login = useCallback(({ id }) => {
     setLoggedIn(true);
     setUserId(id);
   },[])
-  const logout = () => {
+  const logout = async  () => {
+    await refetch ();
     setLoggedIn(false);
     setUserId(null);
-    mutate();
   };
   const data = {
     isLoggedIn,
