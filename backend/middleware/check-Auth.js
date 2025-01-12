@@ -15,8 +15,8 @@ const cookiesOptions = {
 };
 
 export const deleteToken = (req, res, next) => {
-  // res.cookie("jwt", "", cookiesOptions);
-  res.cookie("ddddd","test",cookiesOptions)
+  res.cookie("jwt", "", cookiesOptions);
+  // res.cookie("ddddd","test",cookiesOptions)
   res.status(200).json({
     status: "success",
     jwt:""
