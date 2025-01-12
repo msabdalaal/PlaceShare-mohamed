@@ -37,7 +37,6 @@ export const AuthContextProvider = ({ children }) => {
     await refetch ();
     if(DATA){
       console.log("DATA",DATA);
-      console.log("DATA",DATA);
       setLoggedIn(false);
       setUserId(null);
     }
