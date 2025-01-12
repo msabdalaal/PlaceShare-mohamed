@@ -7,11 +7,10 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const cookiesOptions = {
-  httpOnly: true,
+  httpOnly: process.env.NODE_ENV == "dev",
+  sameSite: "none",
   secure: true,
-  path: "/",
   expires: new Date(Date.now() + 1),
-  sameSite: "None",
 };
 
 export const deleteToken = (req, res, next) => {
@@ -35,7 +34,7 @@ export const checkToken = async (req, res, next) => {
       });
     } else {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      res.cookie("jwt", token, cookiesOptions);
+      // res.cookie("jwt", token, cookiesOptions);
       res.status(200).json({
         status: "success",
         token: {
