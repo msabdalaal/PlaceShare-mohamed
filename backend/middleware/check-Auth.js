@@ -15,8 +15,8 @@ const cookiesOptions = {
 };
 
 export const deleteToken = (req, res, next) => {
-  res.cookie("jwt", "failed", cookiesOptions);
-  // res.cookie("ddddd","test",cookiesOptions)
+  res.cookie("AuthToken", "failed", cookiesOptions); // it no 
+  res.cookie("ddddd","test",cookiesOptions) // it is set
   res.status(200).json({
     status: "success",
     jwt:""
@@ -24,7 +24,7 @@ export const deleteToken = (req, res, next) => {
 };
 export const checkToken = async (req, res, next) => {
   try {
-    const token = req.cookies.jwt;
+    const token = req.cookies.AuthToken;
     console.log("token", token);
     if (!token || token === "") {
       res.status(200).json({
@@ -53,7 +53,7 @@ const Check = async (req, res, next) => {
   try {
     console.log("ddddddddddddddddddddddddddddddddddddddddd");
     console.log("token", req.cookies);
-    const token = req.cookies.jwt;
+    const token = req.cookies.AuthToken;
     if (!token) {
       return next(new HttpError(400, "you don't have access"));
     }
