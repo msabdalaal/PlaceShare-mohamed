@@ -13,7 +13,7 @@ const cookiesOptions = {
   secure: true,       
   sameSite: 'None'
 };
-expo
+
 export const deleteToken = (req, res, next) => {
   // res.cookie("jwt", "", cookiesOptions);
   res.cookie("ddddd","test",cookiesOptions)
