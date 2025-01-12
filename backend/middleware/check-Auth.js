@@ -7,9 +7,9 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const cookiesOptions = {
-  httpOnly: process.env.NODE_ENV === "dev",
-  secure: true,
-  sameSite: "None",
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "prod",
+  path: "/",
   expires: new Date(Date.now() + 1),
 };
 

@@ -19,9 +19,9 @@ export const cookiesOptions = {
   expires: new Date(
     Date.now() + process.env.JWT_COOCKIES_EXPIRATION * 24 * 60 * 60 * 1000
   ),
-  httpOnly: process.env.NODE_ENV === "dev",
-  secure: true,
-  sameSite: "None",
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "prod",
+  path: "/",
 };
 
 export const signup = async (req, res, next) => {
