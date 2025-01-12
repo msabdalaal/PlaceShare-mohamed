@@ -1,8 +1,14 @@
 import "./NavLinks.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+
 import { AuthShared } from "../../context/auth-context";
 const NavLinks = () => {
+  const nav=useNavigate();
   const AuthData = AuthShared();
+  const Logout =()=>{
+    AuthData.logout();
+    nav('/')
+  }
   return (
     <ul className="nav-links">
       <li>
@@ -33,7 +39,7 @@ const NavLinks = () => {
       )}
       {AuthData.isLoggedIn && (
         <li>
-          <button onClick={AuthData.logout}>Logout</button>
+          <button onClick={Logout}>Logout</button>
         </li>
       )}
     </ul>

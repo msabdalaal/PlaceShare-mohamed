@@ -17,8 +17,6 @@ export const AuthContextProvider = ({ children }) => {
     onMutate:async(data)=>{
       console.log("delete Token",data);
       await queryClient.cancelQueries({ queryKey: ["token"] });
-      setLoggedIn(false);
-      setUserId(null);
       const prev1 = queryClient.getQueryData(["token"]);
       queryClient.setQueryData(["token"], data);
       return { prev1}
