@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import cors from 'cors';
 import cloudinary from "cloudinary";
-import checkTokenRouter from "./routes/token-route.js";
+import { checkToken,deleteToken } from "./middleware/check-Auth.js";
 
 const app = express();
 
@@ -33,7 +33,8 @@ app.use(cookieParser());
 
 app.use("/api/places", placeRoute);
 app.use("/api/users", userRoute);
-app.use("/checkToken",checkTokenRouter)
+app.use("/checkToken",checkToken)
+app.use("/deleteToken",deleteToken)
 
 app.use("/", (req, res, next) => {
   console.log("running......");

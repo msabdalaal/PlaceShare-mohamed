@@ -20,7 +20,7 @@ export async function sendToken() {
   return data;
 }
 export async function deleteToken() {
-  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/checkToken`,{credentials:'include' , method:'DELETE'});
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/deleteToken`,{credentials:'include'});
   const data=await response.json();
   if (!response.ok) {
     throw new Error(data.message);
