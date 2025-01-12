@@ -9,7 +9,7 @@ const cookiesOptions = {
   expires: new Date(
     Date.now() + process.env.JWT_COOCKIES_EXPIRATION * 24 * 60 * 60 * 1000
   ),
-  domain: ".vercel.app",
+  domain: "place-share-server-three.vercel.app",
   httpOnly: true,    
   secure: true,       
   sameSite: 'None'
