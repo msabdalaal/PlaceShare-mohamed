@@ -74,6 +74,8 @@ export async function getPlaceByUserId({ signal, id }) {
   const response = await fetch(
     `${import.meta.env.VITE_BACKEND_URL}/api/places/user/${id}`,
     {
+      method: "GET",
+      credentials: "include",
       signal,
     }
   );
