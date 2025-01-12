@@ -22,7 +22,8 @@ export const cookiesOptions = {
   httpOnly: true,    
   secure: true,       
   sameSite: 'None',
-  domain: "place-share-server-three.vercel.app"
+  domain: "place-share-server-three.vercel.app",
+  path: '/' 
 };
 export const signup = async (req, res, next) => {
   try {
