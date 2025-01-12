@@ -11,6 +11,14 @@ export async function fetchUsers() {
 
   return data;
 }
+export async function sendToken() {
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/checkToken`,{credentials:'include'});
+  const data=await response.json();
+  if (!response.ok) {
+    throw new Error(data.message);
+  }
+  return data;
+}
 export async function login({ state, body }) {
   let url = `${import.meta.env.VITE_BACKEND_URL}/api/users/`;
   let options = { method: "POST" , credentials: 'include'};

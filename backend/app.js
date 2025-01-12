@@ -5,6 +5,7 @@ import HttpError from "./models/http-error.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
+import { checkToken } from "./middleware/check-Auth.js";
 import cors from 'cors';
 import cloudinary from "cloudinary";
 
@@ -31,6 +32,7 @@ app.use(cookieParser());
 
 app.use("/api/places", placeRoute);
 app.use("/api/users", userRoute);
+app.use("/checkToken",checkToken)
 app.use("/", (req, res, next) => {
   console.log("running......");
   res.send("Welcome to the homepage!");

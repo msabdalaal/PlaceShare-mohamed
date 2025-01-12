@@ -20,7 +20,8 @@ const cookiesOptions = {
     Date.now() + process.env.JWT_COOCKIES_EXPIRATION * 24 * 60 * 60 * 1000
   ),
   httpOnly: false,    
-  secure: false,       
+  secure: true,       
+  sameSite: 'None'
 };
 export const signup = async (req, res, next) => {
   try {
