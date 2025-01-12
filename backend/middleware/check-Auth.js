@@ -10,22 +10,30 @@ export const cookiesOptions = {
   httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
   secure: process.env.NODE_ENV === "prod", // Only use secure cookies in production
   expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days expiration
-  sameSite: "strict", // CSRF protection
+  sameSite: "None", // CSRF protection
 }
 
 export const deleteToken = (req, res, next) => {
+  res.set({
+    "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+    Pragma: "no-cache",
+    Expires: "0",
+  });
+
   res.cookie("jwt", "", {
-    httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+    httpOnly: true,
     secure: process.env.NODE_ENV === "prod", // Only use secure cookies in production
-    expires: new Date(Date.now() + 1), // 2 days expiration
+    expires: new Date(0),
     sameSite: "None", // CSRF protection
   });
+
   console.log("done");
   res.status(200).json({
     status: "success",
     jwt: "",
   });
 };
+
 
 export const checkToken = async (req, res, next) => {
   try {
@@ -37,7 +45,6 @@ export const checkToken = async (req, res, next) => {
       });
     } else {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      // res.cookie("jwt", token, cookiesOptions);
       res.status(200).json({
         status: "success",
         token: {
