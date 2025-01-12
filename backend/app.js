@@ -12,7 +12,7 @@ import cloudinary from "cloudinary";
 const app = express();
 
 const corsOptions = {
-  origin: 'https://place-share-client-lake.vercel.app/', // تحديد النطاق المسموح به
+  origin: 'https://place-share-client-lake.vercel.app', // تحديد النطاق المسموح به
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
