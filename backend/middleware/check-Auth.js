@@ -6,12 +6,12 @@ if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: "./config.env" });
 }
 
-const cookiesOptions = {
-  httpOnly: process.env.NODE_ENV == "dev",
-  sameSite: "none",
-  secure: true,
-  expires: new Date(Date.now() + 1),
-};
+export const cookiesOptions = {
+  httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+  secure: process.env.NODE_ENV === "prod", // Only use secure cookies in production
+  expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days expiration
+  sameSite: "strict", // CSRF protection
+;
 
 export const deleteToken = (req, res, next) => {
   // res.cookie("jwt", "", cookiesOptions);

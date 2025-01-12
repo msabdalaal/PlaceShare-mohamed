@@ -16,13 +16,11 @@ const generateToken = (id, email) => {
 };
 
 export const cookiesOptions = {
-  expires: new Date(
-    Date.now() + process.env.JWT_COOCKIES_EXPIRATION * 24 * 60 * 60 * 1000
-  ),
-  httpOnly: process.env.NODE_ENV == "dev",
-  sameSite: "none",
-  secure: true,
-};
+  httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+  secure: process.env.NODE_ENV === "prod", // Only use secure cookies in production
+  expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days expiration
+  sameSite: "strict", // CSRF protection
+;
 
 export const signup = async (req, res, next) => {
   try {
