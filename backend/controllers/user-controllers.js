@@ -29,7 +29,7 @@ export const signup = async (req, res, next) => {
     const user = await User.create([req.body]);
     const token = generateToken(user[0]._id, user[0].email);
 
-    res.cookie("AuthToken", token, cookiesOptions);
+    res.cookie("jwt", token, cookiesOptions);
     user[0].password = undefined;
     res.status(200).json({
       status: "success",
@@ -57,7 +57,7 @@ export const login = async (req, res, next) => {
       return next(new HttpError(400, "password isn't correct"));
     }
     const token = generateToken(user._id, user.email);
-    res.cookie("AuthToken", token, cookiesOptions);
+    res.cookie("jwt", token, cookiesOptions);
     user.password = undefined;
     res.status(200).json({
       status: "success",
