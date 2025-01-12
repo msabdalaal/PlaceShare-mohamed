@@ -34,6 +34,7 @@ app.use(cookieParser());
 app.use("/api/places", placeRoute);
 app.use("/api/users", userRoute);
 app.use("/checkToken",checkTokenRouter)
+
 app.use("/", (req, res, next) => {
   console.log("running......");
   res.send("Welcome to the homepage!");
