@@ -20,8 +20,6 @@ export const deleteToken = (req, res, next) => {
     expires: new Date(Date.now() + 1), // 2 days expiration
     sameSite: "strict", // CSRF protection
   });
-
-  // res.clearCookie("jwt", cookiesOptions);
   console.log("done");
   res.status(200).json({
     status: "success",
