@@ -6,19 +6,19 @@ if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: "./config.env" });
 }
 const cookiesOptions = {
-  domain: ".place-share-server-three.vercel.app",
-  httpOnly: true,
-  secure: true,
-  sameSite: "None",
-  path: "/",
+  domain:".place-share-server-three.vercel.app",
+  httpOnly: true,    
+  secure: true,       
+  sameSite: 'None',
+  path: '/' 
 };
 
-export const deleteToken = (req, res, next) => {
-  res.cookie("jwt", "token", cookiesOptions);
-  res.cookie("jwt33", "token", cookiesOptions);
+export const deleteToken = async (req, res, next) => {
+  await res.clearCookie('jwt',cookiesOptions); // بتشتغل بس وانا في localhost
+  console.log("done");
   res.status(200).json({
     status: "success",
-    jwt: "",
+    jwt:""
   });
 };
 export const checkToken = async (req, res, next) => {
