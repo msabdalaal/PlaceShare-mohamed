@@ -22,6 +22,7 @@ export const cookiesOptions = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "prod",
   path: "/",
+  sameSite: "None",
 };
 
 export const signup = async (req, res, next) => {

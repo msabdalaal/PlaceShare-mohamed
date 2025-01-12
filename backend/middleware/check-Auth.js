@@ -11,6 +11,7 @@ const cookiesOptions = {
   secure: process.env.NODE_ENV === "prod",
   path: "/",
   expires: new Date(Date.now() + 1),
+  sameSite: "None",
 };
 
 export const deleteToken = (req, res, next) => {
