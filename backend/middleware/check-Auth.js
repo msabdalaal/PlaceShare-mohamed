@@ -5,27 +5,30 @@ import dotenv from "dotenv";
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: "./config.env" });
 }
+
 const cookiesOptions = {
-  // domain:".place-share-server-three.vercel.app",
-  httpOnly: true,    
-  secure: true,       
-  sameSite: 'None',
-  // path: '/' 
+  httpOnly: process.env.NODE_ENV === "dev",
+  secure: process.env.NODE_ENV === "dev",
+  sameSite: "None",
+  expires: new Date(Date.now() + 1),
 };
 
 export const deleteToken = (req, res, next) => {
-  res.clearCookie('jwt',cookiesOptions); // بتشتغل بس وانا في localhost
+  // res.cookie("jwt", "", cookiesOptions);
+
+  res.clearCookie("jwt", cookiesOptions);
   console.log("done");
   res.status(200).json({
     status: "success",
-    jwt:""
+    jwt: "",
   });
 };
+
 export const checkToken = async (req, res, next) => {
   try {
     const token = req.cookies.jwt;
     console.log("token", token);
-    if (!token || token === ""||token==='failed') {
+    if (!token || token === "" || token === "failed") {
       res.status(200).json({
         status: "success",
       });

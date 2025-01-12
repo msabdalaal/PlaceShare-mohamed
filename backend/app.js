@@ -5,17 +5,16 @@ import HttpError from "./models/http-error.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
-import cors from 'cors';
+import cors from "cors";
 import cloudinary from "cloudinary";
-import { checkToken,deleteToken } from "./middleware/check-Auth.js";
+import { checkToken, deleteToken } from "./middleware/check-Auth.js";
 
 const app = express();
 
 const corsOptions = {
-  origin: 'https://place-share-client-lake.vercel.app', // مش بيشتغل هنا 
-  // origin: 'http://localhost:5173', // بيشتغل هنا 
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: process.env.CORS_ORIGIN,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };
 
@@ -28,14 +27,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-
-
 // Middleware لإضافة CORS headers
 
 app.use("/api/places", placeRoute);
 app.use("/api/users", userRoute);
-app.use("/checkToken",checkToken)
-app.use("/deleteToken",deleteToken)
+app.use("/checkToken", checkToken);
+app.use("/deleteToken", deleteToken);
 
 app.use("/", (req, res, next) => {
   console.log("running......");
@@ -45,11 +42,11 @@ app.all("*", (req, res, next) => {
   return next(new HttpError(400, "No Route"));
 });
 
-app.use(async(error, req, res, next) => {
+app.use(async (error, req, res, next) => {
   console.log("test");
   console.log(error);
   if (req.file) {
-      await cloudinary.v2.uploader.destroy(req.body.imagePublicId);
+    await cloudinary.v2.uploader.destroy(req.body.imagePublicId);
   }
   if (res.headerSent) {
     return next(error);

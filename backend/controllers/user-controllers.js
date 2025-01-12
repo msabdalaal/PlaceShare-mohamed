@@ -19,12 +19,11 @@ export const cookiesOptions = {
   expires: new Date(
     Date.now() + process.env.JWT_COOCKIES_EXPIRATION * 24 * 60 * 60 * 1000
   ),
-  httpOnly: true,    
-  secure: true,       
-  sameSite: 'None',
-  // domain: ".place-share-server-three.vercel.app",
-  // path: '/' 
+  httpOnly: process.env.NODE_ENV === "dev",
+  secure: process.env.NODE_ENV === "dev",
+  sameSite: "None",
 };
+
 export const signup = async (req, res, next) => {
   try {
     req.body.places = [];
