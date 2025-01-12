@@ -47,7 +47,6 @@ export const createPlace = async (req, res, next) => {
 };
 export const getPlaceById = async (req, res, next) => {
   try {
-    res.clearCookie('jwt',cookiesOptions);
     const place = await Place.findById(req.params.Pid);
     if (!place) {
       return next(new HttpError(400, "id doesn't exist"));
