@@ -5,9 +5,9 @@ import HttpError from "./models/http-error.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
-import { checkToken } from "./middleware/check-Auth.js";
 import cors from 'cors';
 import cloudinary from "cloudinary";
+import checkTokenRouter from "./routes/token-route.js";
 
 const app = express();
 
@@ -28,11 +28,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
+
 // Middleware لإضافة CORS headers
 
 app.use("/api/places", placeRoute);
 app.use("/api/users", userRoute);
-app.use("/checkToken",checkToken)
+app.use("/checkToken",checkTokenRouter)
 app.use("/", (req, res, next) => {
   console.log("running......");
   res.send("Welcome to the homepage!");

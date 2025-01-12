@@ -15,11 +15,11 @@ const generateToken = (id, email) => {
   });
 };
 
-const cookiesOptions = {
+export const cookiesOptions = {
   expires: new Date(
     Date.now() + process.env.JWT_COOCKIES_EXPIRATION * 24 * 60 * 60 * 1000
   ),
-  httpOnly: false,    
+  httpOnly: true,    
   secure: true,       
   sameSite: 'None'
 };

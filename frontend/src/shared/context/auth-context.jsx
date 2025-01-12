@@ -1,4 +1,6 @@
+import { useMutation } from "@tanstack/react-query";
 import { createContext, useState, useContext, useCallback } from "react";
+import { deleteToken } from "../util/http";
 
 const AuthContext = createContext({
   isLoggedIn: false,
@@ -9,6 +11,9 @@ const AuthContext = createContext({
 export const AuthContextProvider = ({ children }) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
+  const{mutate}=useMutation({
+    mutationFn:deleteToken
+  })
   const login = useCallback(({ id }) => {
     setLoggedIn(true);
     setUserId(id);
@@ -16,7 +21,7 @@ export const AuthContextProvider = ({ children }) => {
   const logout = () => {
     setLoggedIn(false);
     setUserId(null);
-    
+    mutate();
   };
   const data = {
     isLoggedIn,

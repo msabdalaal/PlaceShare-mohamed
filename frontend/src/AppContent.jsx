@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 import Root from "./Root";
 import { AuthShared } from "./shared/context/auth-context";
-import {  sendToken } from "./shared/util/http";
-import {  useQuery } from "@tanstack/react-query";
+import { sendToken } from "./shared/util/http";
+import { useQuery } from "@tanstack/react-query";
 
 // Lazy load components
 const Users = React.lazy(() => import("./users/pages/User"));
@@ -27,7 +27,11 @@ function AppContent() {
   });
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return (
+      <div className="center">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   if (data?.token) {
@@ -73,4 +77,3 @@ function AppContent() {
   );
 }
 export default AppContent;
-

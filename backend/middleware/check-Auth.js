@@ -1,11 +1,17 @@
 import jwt from "jsonwebtoken";
 import HttpError from "../models/http-error.js";
 import dotenv from "dotenv";
+import { cookiesOptions } from "../controllers/user-controllers.js";
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: "./config.env" });
 }
-
-export const checkToken=async(req,res,next)=>{
+export const deleteToken = (req, res, next) => {
+  res.cookie("jwt", "", cookiesOptions);
+  res.status(200).json({
+    status: "success",
+  });
+};
+export const checkToken = async (req, res, next) => {
   try {
     const token = req.cookies.jwt;
     if (!token) {
@@ -13,39 +19,37 @@ export const checkToken=async(req,res,next)=>{
         status: "success",
       });
     }
-    const decoded =  jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     res.status(200).json({
       status: "success",
       token: {
-        id:decoded.id,
-        email:decoded.email
+        id: decoded.id,
+        email: decoded.email,
       },
     });
   } catch (err) {
-    if(err.message==="jwt expired"){
+    if (err.message === "jwt expired") {
       return next(new HttpError(400, "Please Login again"));
     }
     console.log(err.message);
     return next(new HttpError(400, "you don't have access"));
   }
-}
-
+};
 
 const Check = async (req, res, next) => {
   try {
-    console.log("ddddddddddddddddddddddddddddddddddddddddd")
-    console.log("token",req.cookies);
+    console.log("ddddddddddddddddddddddddddddddddddddddddd");
+    console.log("token", req.cookies);
     const token = req.cookies.jwt;
     if (!token) {
       return next(new HttpError(400, "you don't have access"));
     }
-    const decoded =  jwt.verify(token, process.env.JWT_SECRET);
-
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     req.userData = { id: decoded.id, email: decoded.email };
     next();
   } catch (err) {
-    if(err.message==="jwt expired"){
+    if (err.message === "jwt expired") {
       return next(new HttpError(400, "Please Login again"));
     }
     console.log(err.message);
