@@ -6,15 +6,15 @@ if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: "./config.env" });
 }
 const cookiesOptions = {
-  domain:".place-share-server-three.vercel.app",
+  // domain:".place-share-server-three.vercel.app",
   httpOnly: true,    
   secure: true,       
   sameSite: 'None',
-  path: '/' 
+  // path: '/' 
 };
 
-export const deleteToken = async (req, res, next) => {
-  await res.clearCookie('jwt',cookiesOptions); // بتشتغل بس وانا في localhost
+export const deleteToken = (req, res, next) => {
+  res.clearCookie('jwt',cookiesOptions); // بتشتغل بس وانا في localhost
   console.log("done");
   res.status(200).json({
     status: "success",
@@ -25,12 +25,13 @@ export const checkToken = async (req, res, next) => {
   try {
     const token = req.cookies.jwt;
     console.log("token", token);
-    if (!token || token === "") {
+    if (!token || token === ""||token==='failed') {
       res.status(200).json({
         status: "success",
       });
     } else {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      res.cookie("jwt", token, cookiesOptions);
       res.status(200).json({
         status: "success",
         token: {
