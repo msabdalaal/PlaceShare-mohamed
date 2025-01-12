@@ -22,6 +22,7 @@ export const AuthContextProvider = ({ children }) => {
       return { prev1}
     },
     onError: (error, variables, context) => {
+      console.log(error);
       queryClient.setQueryData(["token"], context.prev1);
     },
     onSettled: () => {
